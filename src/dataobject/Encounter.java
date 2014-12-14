@@ -10,19 +10,20 @@ public class Encounter {
 	private int numMedicines;                            //mapped to 5
 	// u=up, d=down,s=steady, n=no
 	private char insulin;                                //mapped to 6
-	// true=yes, false=no
-	private boolean diabetesMedication;                  //mapped to 7
-	// true=change, false=no change
-	private boolean changeMedication;                    //mapped to 8
+	// 1=yes, 0=no
+	private int diabetesMedication;                      //mapped to 7
+	// 1=change, 0=no change
+	private int changeMedication;                        //mapped to 8
 	// m,f,u
 	private char gender;                                 //mapped to 9
 	private char readmittedGroundTruth;
 	private char readmittedCalculated;
 	int[] features;
 
+
 	public Encounter(int age, int numDiagnoses, int admissionType,
 			int timeInHospital, int dischargeDisposition, int numMedicines,
-			char insulin, boolean diabetesMedication, boolean changeMedication,
+			char insulin, int diabetesMedication, int changeMedication,
 			char gender, char readmitted) {
 		this.age = age;
 		this.numDiagnoses = numDiagnoses;
@@ -105,19 +106,19 @@ public class Encounter {
 		this.insulin = insulin;
 	}
 
-	public boolean isDiabetesMedication() {
+	public int isDiabetesMedication() {
 		return diabetesMedication;
 	}
 
-	public void setDiabetesMedication(boolean diabetesMedication) {
+	public void setDiabetesMedication(int diabetesMedication) {
 		this.diabetesMedication = diabetesMedication;
 	}
 
-	public boolean isChangeMedication() {
+	public int isChangeMedication() {
 		return changeMedication;
 	}
 
-	public void setChangeMedication(boolean changeMedication) {
+	public void setChangeMedication(int changeMedication) {
 		this.changeMedication = changeMedication;
 	}
 
@@ -143,6 +144,14 @@ public class Encounter {
 
 	public void setReadmittedCalculated(char readmittedCalculated) {
 		this.readmittedCalculated = readmittedCalculated;
+	}
+	
+	public int[] getFeatures() {
+		return features;
+	}
+
+	public void setFeatures(int[] features) {
+		this.features = features;
 	}
 
 }

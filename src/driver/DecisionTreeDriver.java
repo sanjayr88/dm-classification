@@ -20,7 +20,7 @@ public class DecisionTreeDriver {
 			String[] tokens;
 			int age, numDiagnoses, admissionType, timeInHospital, dischargeDisposition, numMedicines;
 			char insulin, gender, readmittedGroundTruth;
-			boolean diabetesMedication, changeMedication;
+			int diabetesMedication, changeMedication;
 			//just to move to second line
 			line = scanner.nextLine();
 			while(scanner.hasNextLine()){
@@ -38,10 +38,10 @@ public class DecisionTreeDriver {
 				insulin = tokens[41].charAt(0);
 				gender = tokens[3].charAt(0);
 				readmittedGroundTruth = tokens[49].charAt(0);
-				if(tokens[48].charAt(0)=='Y') diabetesMedication = true;
-				else diabetesMedication = false;
-				if(tokens[47].charAt(0)=='C') changeMedication = true;
-				else changeMedication = false;
+				if(tokens[48].charAt(0)=='Y') diabetesMedication = 1;
+				else diabetesMedication = 0;
+				if(tokens[47].charAt(0)=='C') changeMedication = 1;
+				else changeMedication = 0;
 				encounters.add(new Encounter(age, numDiagnoses, admissionType,
 						timeInHospital, dischargeDisposition, numMedicines,
 						insulin, diabetesMedication, changeMedication,
