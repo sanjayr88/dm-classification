@@ -2,22 +2,23 @@ package dataobject;
 
 public class Encounter {
 	// age 10 means [10-20)
-	private int age;
-	private int numDiagnoses;
-	private int admissionType;
-	private int timeInHospital;
-	private int dischargeDisposition;
-	private int numMedicines;
+	private int age;                                     //mapped to 0
+	private int numDiagnoses;                            //mapped to 1
+	private int admissionType;                           //mapped to 2
+	private int timeInHospital;                          //mapped to 3
+	private int dischargeDisposition;                    //mapped to 4
+	private int numMedicines;                            //mapped to 5
 	// u=up, d=down,s=steady, n=no
-	private char insulin;
+	private char insulin;                                //mapped to 6
 	// true=yes, false=no
-	private boolean diabetesMedication;
+	private boolean diabetesMedication;                  //mapped to 7
 	// true=change, false=no change
-	private boolean changeMedication;
+	private boolean changeMedication;                    //mapped to 8
 	// m,f,u
-	private char gender;
+	private char gender;                                 //mapped to 9
 	private char readmittedGroundTruth;
 	private char readmittedCalculated;
+	int[] features;
 
 	public Encounter(int age, int numDiagnoses, int admissionType,
 			int timeInHospital, int dischargeDisposition, int numMedicines,
@@ -34,6 +35,18 @@ public class Encounter {
 		this.changeMedication = changeMedication;
 		this.gender = gender;
 		this.readmittedGroundTruth = readmitted;
+		features = new int[10];
+		features[0] = age;
+		features[1] = numDiagnoses;
+		features[2] = admissionType;
+		features[3] = timeInHospital;
+		features[4] = dischargeDisposition;
+		features[5] = numMedicines;
+		features[6] = insulin;
+		features[7] = diabetesMedication;
+		features[8] = changeMedication;
+		features[9] = gender;
+		
 	}
 
 	public int getAge() {
