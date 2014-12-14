@@ -4,9 +4,11 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import classification.DecisionTreeAlgorithm;
 import utils.ConfigUtils;
 import utils.FileUtils;
 import dataobject.Encounter;
+import dataobject.Node;
 
 public class DecisionTreeDriver {
 
@@ -50,7 +52,7 @@ public class DecisionTreeDriver {
 			scanner.close();
 			//insert your code below
 			
-			
+			Node node = DecisionTreeAlgorithm.generateDecisionTree(encounters, new int[]{0,0,0,0,0,0,0,0,0,0});
 			
 		}catch (FileNotFoundException e) {
 			System.err.println(e.toString());
