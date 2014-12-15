@@ -2,6 +2,7 @@ package dataobject;
 
 public class Encounter {
 	// age 10 means [10-20)
+	private int id;
 	private int age;                                     //mapped to 0
 	private int numDiagnoses;                            //mapped to 1
 	private int admissionType;                           //mapped to 2
@@ -19,6 +20,7 @@ public class Encounter {
 	private char readmittedGroundTruth;
 	private char readmittedCalculated;
 	int[] features;
+	int[] attributeCardinality;
 
 
 	public Encounter(int age, int numDiagnoses, int admissionType,
@@ -153,5 +155,14 @@ public class Encounter {
 	public void setFeatures(int[] features) {
 		this.features = features;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 
 }
