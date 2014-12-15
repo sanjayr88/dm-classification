@@ -52,5 +52,11 @@ public class Node {
 	public Node(int[] usedFeatures){
 		this.usedFeatures = usedFeatures;
 	}
+	public boolean isLeaf() {
+		return isLeaf;
+	}
+	public void setLeaf(boolean isLeaf) {
+		this.isLeaf = isLeaf;
+	}
 	
 }
