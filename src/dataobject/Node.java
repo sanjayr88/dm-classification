@@ -9,6 +9,8 @@ public class Node {
 	private boolean isLeaf;
 	private ArrayList<Encounter> encounters = new ArrayList<Encounter>();
 	private int[] usedFeatures;
+	private int valueForAttribute;
+	
 	public int getFeatureIndex() {
 		return featureIndex;
 	}
@@ -57,6 +59,12 @@ public class Node {
 	}
 	public void setLeaf(boolean isLeaf) {
 		this.isLeaf = isLeaf;
+	}
+	public int getValueForAttribute() {
+		return valueForAttribute;
+	}
+	public void setValueForAttribute(int valueForAttribute) {
+		this.valueForAttribute = valueForAttribute;
 	}
 	
 }

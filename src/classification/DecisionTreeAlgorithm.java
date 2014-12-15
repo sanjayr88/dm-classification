@@ -24,7 +24,7 @@ public class DecisionTreeAlgorithm {
 				node.setValue('>');
 			else node.setValue('N');
 			//node.setValue(Math.max(Math.max(result1, result2), result3));
-			System.out.println("setting node value to "+node.getValue());
+			//System.out.println("setting node value to "+node.getValue());
 			return node;
 		}else{
 			usedFeatures[indexForCalculation] = 1;
@@ -66,16 +66,22 @@ public class DecisionTreeAlgorithm {
 					Node child = new Node(groundTruth);
 					node.addChildren(child);
 					child.setFeatureIndex(indexForCalculation);
-					System.out.println("created pure child with "+child.getValue());
+					child.setValueForAttribute((int) entry.getKey());
+					//System.out.println("setting value for true" + child.getValueForAttribute());
+					//System.out.println("created pure child with "+child.getValue());
 				}
 				//if impure go into recursion
 				else{
 					Node child = new Node(usedFeatures);
 					node.addChildren(child);
-					generateDecisionTree(child, tempList, usedFeatures);
+					child.setFeatureIndex(indexForCalculation);
+					child.setValueForAttribute((int) entry.getKey());
+					//System.out.println("setting value for false" + child.getValueForAttribute());
+					int[] usedFeaturesNew = usedFeatures;
+					generateDecisionTree(child, tempList, usedFeaturesNew);
 				}
 			}
-			System.out.println("hello");
+			//System.out.println("hello");
 			return node;
 		}
 	}
@@ -137,6 +143,24 @@ public class DecisionTreeAlgorithm {
 		}
 		//System.out.println("for index = " + indexToUse + " entropy is " + result);
 		return result;
+	}
+	
+	public static void classify(Node node, Encounter testEncounter){
+		if(node.isLeaf()) {
+			testEncounter.setReadmittedCalculated((char) node.getValue());
+			return;
+		}
+		while(node.isLeaf()==false){
+			int indexToUse = node.getFeatureIndex();
+			int myFeatureIndexValue = testEncounter.getFeatures()[indexToUse];
+			for(Node e : node.getChildren()){
+				if(e.getValueForAttribute()==myFeatureIndexValue){
+					node = e;
+					break;
+				}
+			}
+		}
+		testEncounter.setReadmittedCalculated((char) node.getValue());
 	}
 }
 

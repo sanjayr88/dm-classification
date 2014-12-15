@@ -7,6 +7,7 @@ import java.util.Scanner;
 import utils.ConfigUtils;
 import utils.FileUtils;
 import classification.DecisionTreeAlgorithm;
+import classification.FiveFoldCrossValidationAlgorithm;
 import dataobject.Encounter;
 import dataobject.Node;
 
@@ -31,7 +32,7 @@ public class DecisionTreeDriver {
 				tokens = line.split(",");
 				if(tokens[4].charAt(1)=='0')age = Integer.parseInt(tokens[4].substring(1,2));
 				else age = Integer.parseInt(tokens[4].substring(1,3));
-				
+
 				numDiagnoses = Integer.parseInt(tokens[21]);
 				admissionType = Integer.parseInt(tokens[6]);
 				timeInHospital = Integer.parseInt(tokens[9]);
@@ -51,10 +52,32 @@ public class DecisionTreeDriver {
 			}
 			scanner.close();
 			//insert your code below
-			
 			Node node = new Node(new int[]{0,0,0,0,0,0,0,0,0,0});
-			node = DecisionTreeAlgorithm.generateDecisionTree(node, encounters, new int[]{0,0,0,0,0,0,0,0,0,0});
-			System.out.println("sanjay");
+			//Generate Id for encounter
+			int numberOfPartitions = Integer.parseInt(ConfigUtils.getProperties().getProperty("numberOfPartitions"));
+			FiveFoldCrossValidationAlgorithm.generateEncounterID(encounters,numberOfPartitions);
+			ArrayList<Encounter> trainingData = new ArrayList<Encounter>();
+			ArrayList<Encounter> testingData = new ArrayList<Encounter>();
+			double accuracy = 0;
+			for(int i = 0; i<numberOfPartitions; i++){
+				for(Encounter en: encounters){
+					if(en.getId()==i){
+						testingData.add(en);
+					}else{
+						trainingData.add(en);
+					}
+				}
+				node = DecisionTreeAlgorithm.generateDecisionTree(node, trainingData, new int[]{0,0,0,0,0,0,0,0,0,0});
+				for(Encounter e: testingData){
+					DecisionTreeAlgorithm.classify(node, e);
+				}
+				//testData classification done
+				double partitionAccuracy = FiveFoldCrossValidationAlgorithm.calculateAccuracy(testingData, i);
+				System.out.println("Accuracy of partition " + (i+1)+ " is " + partitionAccuracy);
+				accuracy+=partitionAccuracy;
+			}
+			System.out.println("Average Accuracy is " + accuracy/numberOfPartitions);
+			
 		}catch (FileNotFoundException e) {
 			System.err.println(e.toString());
 		}
