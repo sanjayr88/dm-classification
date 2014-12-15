@@ -4,9 +4,10 @@ import java.util.ArrayList;
 
 public class Node {
 	private int featureIndex;
-	private ArrayList<Node> children;
+	private ArrayList<Node> children = new ArrayList<Node>();
 	private int value;
-	private ArrayList<Encounter> encounters;
+	private boolean isLeaf;
+	private ArrayList<Encounter> encounters = new ArrayList<Encounter>();
 	private int[] usedFeatures;
 	public int getFeatureIndex() {
 		return featureIndex;
@@ -19,6 +20,9 @@ public class Node {
 	}
 	public void setChildren(ArrayList<Node> children) {
 		this.children = children;
+	}
+	public void addChildren(Node child){
+		this.children.add(child);
 	}
 	public int getValue() {
 		return value;
@@ -41,8 +45,18 @@ public class Node {
 	public void setUsedFeatures(int[] usedFeatures) {
 		this.usedFeatures = usedFeatures;
 	}
+	public Node(int value){
+		this.value = value;
+		this.isLeaf = true;
+	}
 	public Node(int[] usedFeatures){
 		this.usedFeatures = usedFeatures;
+	}
+	public boolean isLeaf() {
+		return isLeaf;
+	}
+	public void setLeaf(boolean isLeaf) {
+		this.isLeaf = isLeaf;
 	}
 	
 }
